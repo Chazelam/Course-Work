@@ -1,8 +1,9 @@
+import numpy as np
+
 def sigmoid(x):
     # Наша функция активации: f(x) = 1 / (1 + e^(-x))
     return 1/(1 + np.exp(-x))
 
-import numpy as np
 class NeuralNetwork:
     #создание самой сети
     def __init__(self, x, y):
