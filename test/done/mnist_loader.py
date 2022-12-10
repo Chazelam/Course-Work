@@ -36,7 +36,7 @@ def load_data():
     below.
     """
 
-    f = gzip.open('neural tests\mnist.pkl.gz', 'rb')
+    f = gzip.open('mnist.pkl.gz', 'rb')
     u = cPickle._Unpickler(f)
     u.encoding = 'latin1'
     training_data, validation_data, test_data = u.load()
