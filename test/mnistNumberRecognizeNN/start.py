@@ -2,8 +2,7 @@ import mnist_loader
 import network
 
 #Загрузка данных MNIST
-training_data, validation_data, test_data = \
-mnist_loader.load_data_wrapper()
+training_data, validation_data, test_data = mnist_loader.load_data_wrapper()
 
 #Настройка сети из 30 скрытых нейронов.
 inputSize = 784      #Размер входного слоя (28*28)
