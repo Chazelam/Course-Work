@@ -10,7 +10,7 @@ for b, w in zip(biases, weights):
     #print(x)
 
 
-sizes = [3, 4, 2]
+sizes = [30, 5, 2]
 weights = [np.random.randn(y, x) for x, y in zip(sizes[:-1], sizes[1:])]
 print(weights) 
 biases = [np.random.randn(y, 1) for y in sizes[1:]]

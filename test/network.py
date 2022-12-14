@@ -31,7 +31,8 @@ class Network(object):
 
     def feedforward(self, a):
         """
-        Расчет значения нейрона а
+        a - вход сети
+        Расчитывает выходное значение
         """
         for b, w in zip(self.biases, self.weights):
             a = sigmoid(np.dot(w, a)+b)
@@ -90,8 +91,8 @@ class Network(object):
         nabla_w = [np.zeros(w.shape) for w in self.weights]
         # feedforward
         activation = x
-        activations = [x] # list to store all the activations, layer by layer
-        zs = []           # list to store all the z vectors, layer by layer
+        activations = [x] # Массив для хранения активаций всех нейронов, слой за слоем
+        zs = []           # Массив для хранения всех z векторов, слой за слоем
         for b, w in zip(self.biases, self.weights):
             z = np.dot(w, activation)+b
             zs.append(z)

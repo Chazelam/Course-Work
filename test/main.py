@@ -10,7 +10,7 @@ class NeuralNetwork:
         self.input      = x                                     #входний слой
         self.weights1   = np.random.rand(self.input.shape[1],4) #Веса
         self.weights2   = np.random.rand(4,1)                   #Веса
-        self.y          = y                                     #Скрытый слой
+        self.y          = y                                     #Скрытый 
         self.output     = np.zeros(y.shape)                     #Выходной слой
 
     #Ф-я прямого распрастранения(активация нейронов)
