@@ -10,5 +10,5 @@ print(b)
 
 np.save("example", b)
 new = np.load("example.npy")
-
-print(new)     
+#ff
+print(new)
