@@ -19,7 +19,7 @@ class Network(object):
         return a # Выход - вектор (10х1)??????
 
     # Стахастический градиентный спуск
-    def SGD(self, training_data, epochs, mini_batch_size, learningRate, test_data=None):
+    def SGD(self, training_data, epochs, mini_batch_size, learningRate, test_data = None):
         # "training_data" - список из кортежей (inputData, outputData), 
         # где inputData - обучающие входные данные(784 пикселя) и outputData - желаемый выход(число от 1 до 10).
         if test_data:               # Если указали необязательный пар-м test_data(эталон)
