@@ -17,9 +17,11 @@ def otsy(img):
     threshold = bin_mids[:-1][index_of_max_val]
     return threshold
 
-file_name = "dd/00100001.png"
+file_name = "/root/VScode/NeuralNetworks/pre-processingHandwrittenSignatureImage/signatureExample(CEDAR 21)/original_21_2.png"
 original_img = cv.imread(file_name)
 gray_img = cv.cvtColor(original_img, cv.COLOR_RGB2GRAY)
 T = otsy(gray_img)
 ret, bin_img = cv.threshold(gray_img, T, 255, 0)
 cv.imwrite("bin.png", bin_img)
+median = cv.medianBlur(bin_img, 5)
+cv.imwrite("median.png", median)
