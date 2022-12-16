@@ -1,20 +1,25 @@
-from PIL import Image
 import numpy as np
+import cv2 as cv
 
-orig = Image.open("dd/00100001.png")
-new = orig.convert("RGB")
+# Расчет порога бинаризации методом Оцу 
+def otsy(img):
+    bins_num = 256
+    hist, bins_edges = np.histogram(img, bins_num)    # построение гистограммы значений пикселей
+    bin_mids = (bins_edges[:-1] + bins_edges[1:]) / 2 # Нахождение центра каждого отрезка
+    # Итерация по массиву и нахождение вероятностей каждого значения пикселя
+    weight1 = np.cumsum(hist)
+    weight2 = np.cumsum(hist[::-1])[::-1]
+    mean1 = np.cumsum(hist * bin_mids) / weight1
+    mean2 = (np.cumsum((hist * bin_mids)[::-1]) / weight2[::-1])[::-1]
 
-r, g, b = new.split()
-r = Image.fromarray(np.array(r)*0.2126)
-g = Image.fromarray(np.array(g)*0.7152)
-b = Image.fromarray(np.array(b)*0.0722)
-new = Image.merge("RGB", (b,g,r))
+    inter_class_variance = weight1[:-1] * weight2[1:] * (mean1[:-1] - mean2[1:]) ** 2
+    index_of_max_val = np.argmax(inter_class_variance)
+    threshold = bin_mids[:-1][index_of_max_val]
+    return threshold
 
-# [r, g, b] = new.getpixel((x, y))
-# r = int(r * 0.21)
-# g = int(g * 0.71)
-# b = int(b * 0.07)
-# value = (r, g, b)
-# new.putpixel((x, y), value)
-new = new.save("ddd.png")
-print("All work!")
+file_name = "dd/00100001.png"
+original_img = cv.imread(file_name)
+gray_img = cv.cvtColor(original_img, cv.COLOR_RGB2GRAY)
+T = otsy(gray_img)
+ret, bin_img = cv.threshold(gray_img, T, 255, 0)
+cv.imwrite("bin.png", bin_img)
