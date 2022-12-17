@@ -17,21 +17,19 @@ def otsy(img):
     threshold = bin_mids[:-1][index_of_max_val]
     return threshold
 
-for i in range(1, n):
-    for j in range(1, 25):
-        # Открытие файла
-        file_name = "/root/VScode/NeuralNetworks/pre-processingHandwrittenSignatureImage/signatureExample(CEDAR 21)/original_21_2.png"
-        original_img = cv.imread(file_name)
-        # Преобразование в полу-тоновое
-        gray_img = cv.cvtColor(original_img, cv.COLOR_RGB2GRAY)
-        T = otsy(gray_img) # Нахождение порога бтнаризации методом Оцу
-        ret, bin_img = cv.threshold(gray_img, T, 255, 0) # Бинаризация
-        median = cv.medianBlur(bin_img, 5) # Медианная фильтрация масокй 5х5
-        non_median = cv.bitwise_not(median) # Инвертирование
-        non_zero = np.nonzero(non_median) # Нахождение всех не нулевых пикселей
-        # Обрезание нулей
-        croped = non_median[min(non_zero[0]):max(non_zero[0]), min(non_zero[1]):max(non_zero[1])]
-        cv.imwrite("croped.png", croped)
-        # Преобразование к формату 300х150
-        final = cv.resize(croped, (300, 150), 1, 1)
-        cv.imwrite("fin.png", final)
+# Открытие файла
+file_name = "/root/VScode/NeuralNetworks/pre-processingHandwrittenSignatureImage/signatureExample(CEDAR 21)/original_21_2.png"
+original_img = cv.imread(file_name)
+# Преобразование в полу-тоновое
+gray_img = cv.cvtColor(original_img, cv.COLOR_RGB2GRAY)
+T = otsy(gray_img) # Нахождение порога бтнаризации методом Оцу
+ret, bin_img = cv.threshold(gray_img, T, 255, 0) # Бинаризация
+median = cv.medianBlur(bin_img, 5) # Медианная фильтрация масокй 5х5
+non_median = cv.bitwise_not(median) # Инвертирование
+non_zero = np.nonzero(non_median) # Нахождение всех не нулевых пикселей
+# Обрезание нулей
+croped = non_median[min(non_zero[0]):max(non_zero[0]), min(non_zero[1]):max(non_zero[1])]
+cv.imwrite("croped.png", croped)
+# Преобразование к формату 300х150
+final = cv.resize(croped, (300, 150), 1, 1)
+cv.imwrite("fin.png", final)
