@@ -17,9 +17,14 @@ def otsy(img):
     threshold = bin_mids[:-1][index_of_max_val]
     return threshold
 
-n = 23
+nX = 300
+nY = 150
+right_ratio = nX/nY
+n = 1 #23
+m = 1 #24
+
 for i in range(1, n + 1):
-    for j in range(1, 25):
+    for j in range(1, m + 1):
         # Открытие файла
         file_name = "/root/VScode/NeuralNetworks/Data[CEDAR]/{0}/original_{1}_{2}.png".format(i, i, j)
         original_img = cv.imread(file_name)
@@ -31,8 +36,29 @@ for i in range(1, n + 1):
         non_median = cv.bitwise_not(median) # Инвертирование
         non_zero = np.nonzero(non_median) # Нахождение всех не нулевых пикселей
         # Обрезание нулей
-        croped = non_median[min(non_zero[0]):max(non_zero[0]), min(non_zero[1]):max(non_zero[1])]
-        cv.imwrite("/root/VScode/NeuralNetworks/new_data/{0}/original_{1}_{2}.png".format(i, i, j), croped)
-        # Преобразование к формату 300х150
-        # final = cv.resize(croped, (300, 150), 1, 1)
-        # cv.imwrite("fin.png", final)
+        img = non_median[min(non_zero[0]):max(non_zero[0]), min(non_zero[1]):max(non_zero[1])]
+        # Преобразование к формату 500х500
+        Y, X = np.shape(img)
+        current_ratio = X / Y
+        if current_ratio == right_ratio:
+            final = cv.resize(img, (nX, nY))
+        elif current_ratio > right_ratio:
+            final = cv.resize(img, (nX, int(Y * (nX/X))))
+            missing = nY - int(Y * (nX/X))
+            if missing % 2 == 0:
+                top = bottom = missing // 2
+            else:
+                top = missing // 2
+                bottom = top + 1
+            final = cv.copyMakeBorder(final, top, bottom, 0, 0, cv.BORDER_CONSTANT, None, value = 0)
+        else:
+            final = cv.resize(img, (int(X * (nY/Y)), nY))
+            missing = nX - int(X * (nY/Y))
+            if missing % 2 == 0:
+                left = right = missing // 2
+            else:
+                left = missing // 2
+                right = left + 1
+            final = cv.copyMakeBorder(final, 0, 0, left, right, cv.BORDER_CONSTANT, None, value = 0)
+        print(type(final))
+        cv.imwrite("/root/VScode/NeuralNetworks/new_data/{0}/original_{1}_{2}.png".format(i, i, j), final)        

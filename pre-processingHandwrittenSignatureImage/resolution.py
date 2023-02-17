@@ -9,7 +9,6 @@ import cv2 as cv
 def avrg(x):
     return int(sum(x)/len(x))
 
-
 Ys = []
 Xs = []
 n = 23
@@ -19,6 +18,8 @@ for i in range(1, n + 1):
         file_name = "/root/VScode/NeuralNetworks/new_data/{0}/original_{1}_{2}.png".format(i, i, j)
         img = cv.imread(file_name)
         Y, X, Channels = img.shape
+        if X != 500 or Y != 500:
+            print(file_name, "\n", X, Y)
         Ys.append(Y)
         Xs.append(X)
 
