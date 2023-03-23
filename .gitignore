@@ -1,2 +1,3 @@
-test/
 DATA/
+mnistNumberRecognize\__pycache__
+env/
