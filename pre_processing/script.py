@@ -20,13 +20,13 @@ def otsy(img):
 nX = 300
 nY = 150
 right_ratio = nX/nY
-n = 1 #23
-m = 1 #24
+n = 23 #23
+m = 24 #24
 
 for i in range(1, n + 1):
     for j in range(1, m + 1):
         # Открытие файла
-        file_name = "/root/VScode/NeuralNetworks/Data[CEDAR]/{0}/original_{1}_{2}.png".format(i, i, j)
+        file_name = "..\DATA\Cedar\{0}\original_{1}_{2}.png".format(i, i, j)
         original_img = cv.imread(file_name)
         # Преобразование в полу-тоновое
         gray_img = cv.cvtColor(original_img, cv.COLOR_RGB2GRAY)
@@ -60,5 +60,4 @@ for i in range(1, n + 1):
                 left = missing // 2
                 right = left + 1
             final = cv.copyMakeBorder(final, 0, 0, left, right, cv.BORDER_CONSTANT, None, value = 0)
-        print(type(final))
-        cv.imwrite("/root/VScode/NeuralNetworks/new_data/{0}/original_{1}_{2}.png".format(i, i, j), final)        
+        cv.imwrite("../DATA/new_data/{0}/original_{1}_{2}.png".format(i, i, j), final)        
