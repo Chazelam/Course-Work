@@ -9,12 +9,12 @@ def vectorized_result(j, n):
 def load_data():
     training_data = []
     test_data = []
-    n = 3 #23
+    n = 10 #23
     m = 24 #24
     for i in range(1, n + 1):
         for j in range(1, m + 1):
             # Открытие файла
-            file_name = "/root/VScode/NeuralNetworks/DATA/new_data/{0}/original_{1}_{2}.png".format(i, i, j)
+            file_name = "../DATA/new_data/{0}/original_{1}_{2}.png".format(i, i, j)
             img = cv.imread(file_name, cv.IMREAD_GRAYSCALE)
             img = np.reshape(img, (-1, 1))
             img = img.astype("float32")
